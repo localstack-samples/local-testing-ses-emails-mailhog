@@ -1,4 +1,10 @@
-zip -r function.zip index.js
+awslocal ssm put-parameter --name /email/recipient --value "recipient@example.com" --type String
+
+awslocal ssm put-parameter --name /email/sender --value "sender@example.com" --type String
+
+awslocal ses verify-email-identity --email sender@example.com
+
+zip -r function.zip index.js node_modules/          
 
 awslocal lambda create-function \
   --function-name feedbackFormHandler \

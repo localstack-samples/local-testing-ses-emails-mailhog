@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "short_name": "frontend",
+  "name": "feedback-survey-frontend",
+  "short_name": "feedback-survey-frontend",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

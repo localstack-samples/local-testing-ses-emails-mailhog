@@ -1,4 +1,4 @@
-# frontend
+# feedback-survey-frontend
 
 ## CLI Commands
 
