@@ -50,7 +50,7 @@ Make sure that the LocalStack Auth Token is set in the environment.
 Start LocalStack with the MailHog extension enabled:
 
 ```bash
-make start`
+make start
 ```
 
 Make sure that the LocalStack Auth Token is set in the environment.
