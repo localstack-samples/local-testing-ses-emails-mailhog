@@ -19,7 +19,8 @@ The workflow includes end-to-end local testing without requiring real AWS creden
 
 ## Prerequisites
 
-- [`localstack` CLI](https://docs.localstack.cloud/) with [LocalStack Auth Token](https://docs.localstack.cloud/getting-started/auth-token/)
+- A valid [LocalStack for AWS license](https://localstack.cloud/pricing). Your license provides a [`LOCALSTACK_AUTH_TOKEN`](https://docs.localstack.cloud/getting-started/auth-token/) to activate LocalStack.
+- [`localstack` CLI](https://docs.localstack.cloud/getting-started/installation/#localstack-cli)
 - [Node.js](https://nodejs.org/) & `npm`
 - [Docker](https://docs.docker.com/get-docker/)
 - [`awslocal`](https://docs.localstack.cloud/user-guide/integrations/aws-cli/#localstack-aws-cli-awslocal)
@@ -50,10 +51,10 @@ Make sure that the LocalStack Auth Token is set in the environment.
 Start LocalStack with the MailHog extension enabled:
 
 ```bash
+export LOCALSTACK_AUTH_TOKEN=<your-auth-token>
 make start
+make ready
 ```
-
-Make sure that the LocalStack Auth Token is set in the environment.
 
 ## Deploy the backend resources
 
