@@ -55,9 +55,14 @@ run:         ## Fetch Lambda function URL and display it
 	@echo "Lambda Function URL: $$FUNCTION_URL"
 
 start:       ## Start LocalStack in detached mode
+	@test -n "${LOCALSTACK_AUTH_TOKEN}" || (echo "LOCALSTACK_AUTH_TOKEN is not set. Find your token at https://app.localstack.cloud/workspace/auth-token"; exit 1)
 	@echo "Starting LocalStack..."
-	ACTIVATE_PRO=1 localstack start -d
+	@LOCALSTACK_AUTH_TOKEN=$(LOCALSTACK_AUTH_TOKEN) localstack start -d
 	@echo "LocalStack started."
+
+ready:       ## Wait until LocalStack is ready
+	@echo Waiting on the LocalStack container...
+	@localstack wait -t 30 && echo LocalStack is ready to use! || (echo Gave up waiting on LocalStack, exiting. && exit 1)
 
 stop:        ## Stop LocalStack
 	@echo "Stopping LocalStack..."
@@ -75,4 +80,4 @@ clean:       ## Clean up resources
 	rm -f function.zip
 	@echo "Resources cleaned."
 
-.PHONY: usage check install deploy-backend deploy-frontend run start stop logs clean
+.PHONY: usage check install deploy-backend deploy-frontend run start ready stop logs clean
