@@ -1,6 +1,6 @@
 #!/bin/bash
 
-functionUrl=$(awslocal lambda get-function-url-config --function-name feedbackFormHandler --query FunctionUrl --output text)
+functionUrl=$(lstk aws lambda get-function-url-config --function-name feedbackFormHandler --query FunctionUrl --output text)
 
 # Check if the function URL was fetched successfully
 if [ $? -eq 0 ]; then
