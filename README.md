@@ -19,11 +19,11 @@ The workflow includes end-to-end local testing without requiring real AWS creden
 
 ## Prerequisites
 
-- A valid [LocalStack for AWS license](https://localstack.cloud/pricing). Your license provides a [`LOCALSTACK_AUTH_TOKEN`](https://docs.localstack.cloud/getting-started/auth-token/) to activate LocalStack.
-- [`localstack` CLI](https://docs.localstack.cloud/getting-started/installation/#localstack-cli)
+- A valid [LocalStack for AWS license](https://localstack.cloud/pricing). Your license provides a [`LOCALSTACK_AUTH_TOKEN`](https://docs.localstack.cloud/aws/getting-started/auth-token/) to activate LocalStack.
+- [`lstk`](https://docs.localstack.cloud/aws/developer-tools/running-localstack/lstk/), the LocalStack CLI. Install it with `npm install -g @localstack/lstk` or `brew install localstack/tap/lstk`.
 - [Node.js](https://nodejs.org/) & `npm`
 - [Docker](https://docs.docker.com/get-docker/)
-- [`awslocal`](https://docs.localstack.cloud/user-guide/integrations/aws-cli/#localstack-aws-cli-awslocal)
+- [AWS CLI](https://aws.amazon.com/cli/), required by `lstk aws`.
 - [`zip`](https://www.7-zip.org/)
 
 ## Installation
@@ -38,11 +38,7 @@ make install
 
 MailHog is an open-source email testing tool that works with LocalStack to emulate SES email delivery and provides a web UI to inspect sent emails.
 
-To install the MailHog extension, run the following command:
-
-```bash
-localstack extensions install localstack-extension-mailhog
-```
+`lstk` reads the container's environment variables from [`.lstk/config.toml`](.lstk/config.toml), which installs the `localstack-extension-mailhog` extension automatically on start.
 
 Make sure that the LocalStack Auth Token is set in the environment.
 
@@ -53,7 +49,6 @@ Start LocalStack with the MailHog extension enabled:
 ```bash
 export LOCALSTACK_AUTH_TOKEN=<your-auth-token>
 make start
-make ready
 ```
 
 ## Deploy the backend resources

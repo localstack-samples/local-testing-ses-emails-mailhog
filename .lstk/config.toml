@@ -1,0 +1,8 @@
+[[containers]]
+type = "aws"
+tag  = "latest"
+port = "4566"
+env  = ["mailhog"]
+
+[env.mailhog]
+EXTENSION_AUTO_INSTALL = "localstack-extension-mailhog"
