@@ -15,8 +15,8 @@ check:       ## Check if all required prerequisites are installed
 
 install:     ## Install dependencies and prepare environment
 	@echo "Installing dependencies..."
-	@cd feedback-survey-frontend
 	@npm install
+	@cd feedback-survey-frontend && npm install
 	@echo "Dependencies installed."
 
 deploy-backend: ## Deploy backend resources (SSM, Lambda, and SES)
@@ -31,6 +31,7 @@ deploy-backend: ## Deploy backend resources (SSM, Lambda, and SES)
 		--handler index.handler \
 		--zip-file fileb://function.zip \
 		--role arn:aws:iam::000000000000:role/lambda-role
+	lstk aws lambda wait function-active-v2 --function-name feedbackFormHandler
 	lstk aws lambda create-function-url-config \
 		--function-name feedbackFormHandler \
 		--auth-type NONE
@@ -52,6 +53,9 @@ run:         ## Fetch Lambda function URL and display it
 		--query FunctionUrl \
 		--output text)
 	@echo "Lambda Function URL: $$FUNCTION_URL"
+
+test:        ## Submit feedback through the function URL and check the SES email
+	npm test
 
 start:       ## Start LocalStack
 	@test -n "${LOCALSTACK_AUTH_TOKEN}" || (echo "LOCALSTACK_AUTH_TOKEN is not set. Find your token at https://app.localstack.cloud/workspace/auth-token"; exit 1)
@@ -76,4 +80,4 @@ clean:       ## Clean up resources
 	rm -f function.zip
 	@echo "Resources cleaned."
 
-.PHONY: usage check install deploy-backend deploy-frontend run start stop logs clean
+.PHONY: usage check install deploy-backend deploy-frontend run test start stop logs clean
